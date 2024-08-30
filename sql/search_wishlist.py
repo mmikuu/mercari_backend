@@ -3,7 +3,8 @@ import sqlite3
 
 
 def get_matched_data(your_list: dict) -> int:
-    conn = sqlite3.connect("wishlists.db")
+    database: str = "wishlists.db"
+    conn = sqlite3.connect(database)
     cur = conn.cursor()
 
     search = cur.execute('SELECT * FROM wishlist WHERE items_name == ?', ([your_list["items_name"]])) # 型番が一致するものをwishlistから検索
