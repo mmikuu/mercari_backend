@@ -115,12 +115,14 @@ async def reccomend_wishlist(
     }
 
     print(form_data)
+    # wishlistにINSERT
+    insert_data = sql.add_wishlist(form_data) #### databaseにINSERT
 
     # 画像の読み込みと前処理
     image = Image.open(img_file.file)
     input_tensor = preprocess(image)
     input_batch = input_tensor.unsqueeze(0)
-    insert_data = sql.add_wishlist(form_data) #### databaseにINSERT
+
         
 
 
