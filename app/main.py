@@ -118,9 +118,9 @@ async def reccomend_wishlist(
     # 最も類似度の高いwishを取得
     most_similar_index = np.argmax(similarities)
     most_similar_wish = wish_list[most_similar_index]
-    matched_wish_yours = sql.search_wishlist(your_list) #榎原が書いたやつ、出品者の管理情報を{"id":0, "category":0, "items_name":0, "storage":0}にして入れてね！
+    matched_wish_yours = sql.search_wishlist.get_matched_data(your_list={"id":0, "category":0, "item_name":0, "storage":0}) #榎原が書いたやつ、出品者の管理情報を{"id":0, "category":0, "items_name":0, "storage":0}にして入れてね！
     # min, max, 人数が返されます。
-    
+
     return JSONResponse(content={
         "most_similar_wish": most_similar_wish,
         "similarity_score": float(similarities[most_similar_index])
