@@ -87,11 +87,13 @@ async def add_listinglist(
 
     print(form_data)
 
-    matched_wish_yours,min,max = sql.get_matched_data(your_list={"id":0, "category":0, "item_name":0, "storage":0}) #榎原が書いたやつ、出品者の管理情報を{"id":0, "category":0, "items_name":0, "storage":0}にして入れてね！
+    #input:出品者の管理情報　-> output:wishlistとの一致情報
+    matched_wish_yours = sql.get_matched_data(form_data) #榎原が書いたやつ、出品者の管理情報を{"id":0, "category":0, "items_name":0, "storage":0}にして入れてね！
+    # (min, max, cnt on people)で出力されます。
 
 @app.get("/budget")
 async def get_budget():
-    return {"matched_wish_yours":matched_wish_yours,"min":min,"max":max}
+    return {"matched_wish_yours":matched_wish_yours[2],"min":matched_wish_yours[0],"max":matched_wish_yours[1]}
 
 
 @app.post("/wishes")
