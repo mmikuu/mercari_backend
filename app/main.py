@@ -15,6 +15,9 @@ import numpy as np
 import requests
 import openai
 
+import sql.add_wishlist
+import sql.search_wishlist
+
 
 # .envファイルを読み込み
 load_dotenv()
@@ -79,7 +82,8 @@ async def reccomend_wishlist(
     image = Image.open(img_file.file)
     input_tensor = preprocess(image)
     input_batch = input_tensor.unsqueeze(0)
-    database_data = from_database("sql/wishlists.db")#### database入れ込み
+    insert_data = sql.add_wishlist(####dict型を入れてね####) #### databaseにINSERT
+        
 
     get_answer_item_detail()
 
@@ -104,7 +108,9 @@ async def reccomend_wishlist(
     # 最も類似度の高いwishを取得
     most_similar_index = np.argmax(similarities)
     most_similar_wish = wish_list[most_similar_index]
-
+    matched_wish_yours = sql.search_wishlist(your_list) #榎原が書いたやつ、出品者の管理情報を{"id":0, "category":0, "items_name":0, "storage":0}にして入れてね！
+    # min, max, 人数が返されます。
+    
     return JSONResponse(content={
         "most_similar_wish": most_similar_wish,
         "similarity_score": float(similarities[most_similar_index])

@@ -1,0 +1,19 @@
+CREATE TABLE wishlist(
+    id int not null,
+    category text not null,
+    items_name text not null,
+    camera text,
+    duration int,
+    charge_type text,
+    storage int,
+    size int,
+    min_budget int not null,
+    max_budget int not null,
+PRIMARY KEY(id,category,min_budget,max_budget));
+
+CREATE TABLE listings(
+    id int not null,
+    category text not null,
+    items_name text not null,
+    storage int not null,
+PRIMARY KEY(id,items_name));
