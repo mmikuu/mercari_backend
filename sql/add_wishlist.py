@@ -6,13 +6,32 @@ from collections import deque
 from tap import Tap
 
 
-class Args(Tap):
     database: str = "sql/wishlists.db"
     wishlist: dict = {"id":0, "category":0, "item_name":0, "min_budget":0, "max_budget":0}
     wishlist_path: str = "sql/wishlist.json"
     ### to do
     ### 受け取りは、dict型？jsonのpath？確定しておくこと！
-    
+
+def ():
+    conn = sqlite3.connect(self.database)
+    cur = conn.cursor()
+
+
+    wishlist_item = [v[1] for i, v in enumerate(self.wishlist.items())]
+
+        sql = ''' INSERT INTO wishlist(id,category,items_name,min_budget,max_budget)
+                 VALUES(?,?,?,?,?) '''
+        cur = conn.cursor()
+        cur.execute(sql, wishlist_item)
+        conn.commit()
+
+        search = cur.execute('SELECT * FROM wishlist')
+        result = search.fetchall()
+        print(result)
+
+        cur.close()
+        conn.close()
+
 class Exp:
     def __init__(self, args: Args):
         self.args: Args = args        

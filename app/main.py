@@ -15,8 +15,11 @@ import numpy as np
 import requests
 import openai
 
-import sql.add_wishlist
-import sql.search_wishlist
+import sql ##榎原の関数
+
+matched_wish_yours = None
+min = None
+max = None
 
 
 # .envファイルを読み込み
@@ -84,8 +87,7 @@ async def add_listinglist(
 
     print(form_data)
 
-    matched_wish_yours = sql.search_wishlist.get_matched_data(your_list={"id":0, "category":0, "item_name":0, "storage":0}) #榎原が書いたやつ、出品者の管理情報を{"id":0, "category":0, "items_name":0, "storage":0}にして入れてね！
-
+    matched_wish_yours,min,max = sql.get_matched_data(your_list={"id":0, "category":0, "item_name":0, "storage":0}) #榎原が書いたやつ、出品者の管理情報を{"id":0, "category":0, "items_name":0, "storage":0}にして入れてね！
 
 @app.get("/budget")
 async def get_budget():
@@ -116,7 +118,7 @@ async def reccomend_wishlist(
     image = Image.open(img_file.file)
     input_tensor = preprocess(image)
     input_batch = input_tensor.unsqueeze(0)
-    insert_data = sql.addfwewishlist(form_data) #### databaseにINSERT
+    insert_data = sql.add_wishlist(form_data) #### databaseにINSERT
         
 
 
@@ -140,7 +142,7 @@ async def reccomend_wishlist(
     # 最も類似度の高いwishを取得
     most_similar_index = np.argmax(similarities)
     most_similar_wish = wish_list[most_similar_index]
-    # matched_wish_yours = sql.search_wishlist(your_list) #榎原が書いたやつ、出品者の管理情報を{"id":0, "category":0, "items_name":0, "storage":0}にして入れてね！
+    # matched_wish_yours = sql.get_matched_data(your_list={"id":0, "category":0, "item_name":0, "storage":0}) #榎原が書いたやつ、出品者の管理情報を{"id":0, "category":0, "items_name":0, "storage":0}にして入れてね！
     # min, max, 人数が返されます。
     
     return JSONResponse(content={
