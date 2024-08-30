@@ -8,8 +8,8 @@ def add_wishlist(wishlist: dict) -> None: #### wishlistに追加する関数
 
     wishlist_item = [v[1] for i, v in enumerate(wishlist.items())]
 
-    sql = ''' INSERT INTO wishlist(id,category,items_name,min_budget,max_budget)
-             VALUES(?,?,?,?,?) '''
+    sql = ''' INSERT INTO wishlist(id,category,items_name,storage,min_budget,max_budget)
+             VALUES(?,?,?,?,?,?) '''
     cur = conn.cursor()
     cur.execute(sql, wishlist_item)
     conn.commit()
@@ -48,6 +48,9 @@ def get_matched_data(your_list: dict) -> tuple:  ### 出品者がwishlistとの�
     conn = sqlite3.connect(database)
     cur = conn.cursor()
 
+    x = cur.execute("SELECT name FROM sqlite_master WHERE type='table';")
+    print(x.fetchall())
+    
     search = cur.execute('SELECT * FROM wishlist WHERE items_name == ?', ([your_list["items_name"]])) # 型番が一致するものをwishlistから検索
     result = search.fetchall()
 
