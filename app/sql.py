@@ -8,6 +8,7 @@ def add_wishlist(wishlist: dict) -> None: #### wishlistに追加する関数
 
     wishlist_item = [v[1] for i, v in enumerate(wishlist.items())]
 
+
     sql = ''' INSERT INTO wishlist(id,category,items_name,storage,min_budget,max_budget)
              VALUES(?,?,?,?,?,?) '''
     cur = conn.cursor()
