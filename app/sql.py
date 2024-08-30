@@ -49,7 +49,7 @@ def get_matched_data(your_list: dict) -> tuple:  ### 出品者がwishlistとの�
     cur = conn.cursor()
 
     x = cur.execute("SELECT name FROM sqlite_master WHERE type='table';")
-    print(x.fetchall())
+    print('database table:', x.fetchall())
     
     search = cur.execute('SELECT * FROM wishlist WHERE items_name == ?', ([your_list["items_name"]])) # 型番が一致するものをwishlistから検索
     result = search.fetchall()
