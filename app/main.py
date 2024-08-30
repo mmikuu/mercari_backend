@@ -1,4 +1,4 @@
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File, UploadFile, Form
 from fastapi.responses import JSONResponse
 import uvicorn
 from PIL import Image
@@ -13,7 +13,7 @@ from googleapiclient.discovery import build
 from dotenv import load_dotenv
 import numpy as np
 import requests
-import openai
+
 
 import sql ##榎原の関数
 
@@ -21,13 +21,6 @@ matched_wish_yours = None
 min = None
 max = None
 
-
-# .envファイルを読み込み
-load_dotenv()
-
-# 環境変数からAPIキーとCSE IDを取得
-API_KEY = os.getenv("API_KEY")
-cse_id = os.getenv("CSE_ID")
 
 
 wish_list = [
@@ -88,7 +81,8 @@ async def add_listinglist(
     print(form_data)
 
     #input:出品者の管理情報　-> output:wishlistとの一致情報
-    matched_wish_yours = sql.get_matched_data(form_data) #榎原が書いたやつ、出品者の管理情報を{"id":0, "category":0, "items_name":0, "storage":0}にして入れてね！
+    matched_wish_yours = sql.get_matched_data(form_data) #榎原が書いたやつ
+    # 入力は{"id":0, "category":0, "items_name":0, "storage":0}にして入れてね！
     # (min, max, cnt on people)で出力されます。
 
 @app.get("/budget")
@@ -148,8 +142,7 @@ async def reccomend_wishlist(
     # 最も類似度の高いwishを取得
     most_similar_index = np.argmax(similarities)
     most_similar_wish = wish_list[most_similar_index]
-    # matched_wish_yours = sql.get_matched_data(your_list={"id":0, "category":0, "item_name":0, "storage":0}) #榎原が書いたやつ、出品者の管理情報を{"id":0, "category":0, "items_name":0, "storage":0}にして入れてね！
-    # min, max, 人数が返されます。
+
     
     return JSONResponse(content={
         "most_similar_wish": most_similar_wish,
