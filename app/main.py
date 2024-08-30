@@ -1,4 +1,5 @@
-from fastapi import FastAPI, File, UploadFile, Form
+from fastapi import FastAPI, File, UploadFile,Form
+from typing import Optional
 from fastapi.responses import JSONResponse
 import uvicorn
 from PIL import Image
@@ -17,10 +18,11 @@ import requests
 
 import sql ##榎原の関数
 
-matched_wish_yours = None
-min = None
-max = None
+# matched_wish_yours = None
+# min = None
+# max = None
 
+matched_wish_yours = None
 
 
 wish_list = [
@@ -71,22 +73,33 @@ async def add_listinglist(
     type: Optional[str] = Form(None),
     storage: Optional[str] = Form(None),
     ):
+    print("yyyy")
     form_data = {
         "id":0,
         "category":device,
-        "item_names":type,
+        "items_name":type,
         "storage":storage,
     }
 
     print(form_data)
+
+    global matched_wish_yours  # グローバル変数として宣言
 
     #input:出品者の管理情報　-> output:wishlistとの一致情報
     matched_wish_yours = sql.get_matched_data(form_data) #榎原が書いたやつ
     # 入力は{"id":0, "category":0, "items_name":0, "storage":0}にして入れてね！
     # (min, max, cnt on people)で出力されます。
 
+    print(f"Matched wish: {matched_wish_yours[2]}")
+
+def set_matching_wish(matched_wish_yours):
+    this.#pythonって，this.だっけ？
+
+
+
 @app.get("/budget")
 async def get_budget():
+    global matched_wish_yours  # グローバル変数として宣言
     return {"matched_wish_yours":matched_wish_yours[2],"min":matched_wish_yours[0],"max":matched_wish_yours[1]}
 
 
@@ -142,7 +155,8 @@ async def reccomend_wishlist(
     # 最も類似度の高いwishを取得
     most_similar_index = np.argmax(similarities)
     most_similar_wish = wish_list[most_similar_index]
-
+    # matched_wish_yours = sql.get_matched_data(your_list={"id":0, "category":0, "item_name":0, "storage":0}) #榎原が書いたやつ、出品者の管理情報を{"id":0, "category":0, "items_name":0, "storage":0}にして入れてね！
+    # min, max, 人数が返されます。
     
     return JSONResponse(content={
         "most_similar_wish": most_similar_wish,
