@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+torch==2.0.1
+torchvision==0.15.2
+Pillow==9.5.0
+python-multipart
+sentence-transformers
+scikit-learn
+google-api-python-client
+requests
+python-dotenv
