@@ -32,7 +32,7 @@ def add_listings(your_list: dict) -> None:  ##listingsに追加する関数
     your_item = [v[1] for i,v in enumerate(your_list.items())]
     sql = ''' INSERT INTO listings(id,category,items_name,storage)
              VALUES(?,?,?,?) ''' # 出品者の情報をlistingsにINSERT
-    cur = conn.cursor()
+    
     cur.execute(sql, your_item)
     conn.commit()
 
