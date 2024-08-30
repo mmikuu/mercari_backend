@@ -68,4 +68,5 @@ def get_matched_data(your_list: dict) -> tuple:  ### 出品者がwishlistとの�
             max = item[9]
         if min > item[9]:
             min = item[9]
+    print(matched)
     return min, max, people

@@ -78,6 +78,7 @@ async def add_listinglist(
         "id":0,
         "category":device,
         "items_name":type,
+        "items_name":type,
         "storage":storage,
     }
 
@@ -87,7 +88,7 @@ async def add_listinglist(
 
     #input:出品者の管理情報　-> output:wishlistとの一致情報
     matched_wish_yours = sql.get_matched_data(form_data) #榎原が書いたやつ
-    # 入力は{"id":0, "category":0, "items_name":0, "storage":0}にして入れてね！
+    # 入力は{"id":0, "category":0, "items_name":0, "storage":0}の形式にして入れてね！
     # (min, max, cnt on people)で出力されます。
 
     print(f"Matched wish: {matched_wish_yours[2]}")
