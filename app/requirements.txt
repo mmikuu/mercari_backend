@@ -9,3 +9,4 @@ scikit-learn
 google-api-python-client
 requests
 python-dotenv
+sqlite3
