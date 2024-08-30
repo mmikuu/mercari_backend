@@ -1,7 +1,7 @@
 import os, sys
 import sqlite3
 
-def add_listings(wishlist: dict) -> None: #### wishlistに追加する関数
+def add_wishlist(wishlist: dict) -> None: #### wishlistに追加する関数
     database: str = "wishlists.db"
     conn = sqlite3.connect(database)
     cur = conn.cursor()
