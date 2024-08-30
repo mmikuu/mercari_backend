@@ -17,9 +17,9 @@ import requests
 
 import sql ##榎原の関数
 
-matched_wish_yours = None
-min = None
-max = None
+#matched_wish_yours = None
+#min = None
+#max = None
 
 
 
@@ -74,7 +74,7 @@ async def add_listinglist(
     form_data = {
         "id":0,
         "category":device,
-        "item_names":type,
+        "items_name":type,
         "storage":storage,
     }
 
@@ -82,8 +82,10 @@ async def add_listinglist(
 
     #input:出品者の管理情報　-> output:wishlistとの一致情報
     matched_wish_yours = sql.get_matched_data(form_data) #榎原が書いたやつ
-    # 入力は{"id":0, "category":0, "items_name":0, "storage":0}にして入れてね！
+    # 入力は{"id":0, "category":0, "items_name":0, "storage":0}の形式にして入れてね！
     # (min, max, cnt on people)で出力されます。
+    return matched_wish_yours
+
 
 @app.get("/budget")
 async def get_budget():
