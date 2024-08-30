@@ -79,6 +79,7 @@ async def reccomend_wishlist(
     image = Image.open(img_file.file)
     input_tensor = preprocess(image)
     input_batch = input_tensor.unsqueeze(0)
+    database_data = from_database("sql/wishlists.db")#### database入れ込み
 
     get_answer_item_detail()
 
