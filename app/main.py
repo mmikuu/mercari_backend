@@ -100,6 +100,7 @@ async def reccomend_wishlist(
     wanna: Optional[str] = Form(None),
     max_budget: Optional[str] = Form(None),
     min_budget: Optional[str] = Form(None),
+    storage: Optional[str] = Form(None),
     speed: Optional[str] = Form(None),
     camera: Optional[str] = Form(None),
     size: Optional[str] = Form(None),
@@ -110,6 +111,7 @@ async def reccomend_wishlist(
         "items_name": wanna,
         "min-budget": min_budget,
         "max-budget": max_budget,
+        "storage": storage
     }
 
     print(form_data)
