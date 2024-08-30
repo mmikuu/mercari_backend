@@ -29,10 +29,11 @@ def add_listings(your_list: dict) -> None:  ##listingsに追加する関数
     search = cur.execute('SELECT * FROM wishlist WHERE items_name == ?', ([your_list["items_name"]])) # 型番が一致するものをwishlistから検索
     result = search.fetchall()
 
+    your_item = [v[1] for i,v in enumerate(your_list.items())]
     sql = ''' INSERT INTO listings(id,category,items_name,storage)
              VALUES(?,?,?,?) ''' # 出品者の情報をlistingsにINSERT
     cur = conn.cursor()
-    cur.execute(sql, your_list)
+    cur.execute(sql, your_item)
     conn.commit()
 
     search = cur.execute('SELECT * FROM listings')
