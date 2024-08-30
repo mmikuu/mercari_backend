@@ -25,11 +25,6 @@ load_dotenv()
 # 環境変数からAPIキーとCSE IDを取得
 API_KEY = os.getenv("API_KEY")
 cse_id = os.getenv("CSE_ID")
-openai.api_key = "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" 
-
-cse_id = "YOUR_CSE_ID"
-API_KEY = "YOUR_API_KEY"
-
 
 wish_list = [
     {
@@ -73,19 +68,34 @@ preprocess = transforms.Compose([
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
 ])
 
-
 @app.post("/contents")
+
+@app.post("/wishes")
 async def reccomend_wishlist(
-    img_file: UploadFile = File(...),
-    ):
+    category: Optional[str] = Form(None),
+    wanna: Optional[str] = Form(None),
+    max_budget: Optional[str] = Form(None),
+    min_budget: Optional[str] = Form(None),
+    speed: Optional[str] = Form(None),
+    camera: Optional[str] = Form(None),
+    size: Optional[str] = Form(None),
+    ):  # フォームデータを辞書にまとめる
+    form_data = {
+        "id":0,
+        "category" : category,
+        "item_name": wanna,
+        "min-budget": min_budget,
+        "max-budget": max_budget,
+    }
+
+    print(form_data)
+
     # 画像の読み込みと前処理
     image = Image.open(img_file.file)
     input_tensor = preprocess(image)
     input_batch = input_tensor.unsqueeze(0)
-    insert_data = sql.add_wishlist(####dict型を入れてね####) #### databaseにINSERT
+    insert_data = sql.addfwewishlist(form_data) #### databaseにINSERT
         
-
-    get_answer_item_detail()
 
 
     # 画像から特徴ベクトルを取得
