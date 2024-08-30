@@ -109,9 +109,9 @@ async def reccomend_wishlist(
         "id":0,
         "category" : category,
         "items_name": wanna,
+        "storage": storage,
         "min-budget": min_budget,
         "max-budget": max_budget,
-        "storage": storage
     }
 
     print(form_data)
