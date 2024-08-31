@@ -86,6 +86,7 @@ async def add_listinglist(
     matched_wish_yours = sql.get_matched_data(form_data) #榎原が書いたやつ
     # 入力は{"id":0, "category":0, "items_name":0, "storage":0}の形式にして入れてね！
     # (min, max, cnt on people)で出力されます。
+    print(matched_wish_yours)
     return matched_wish_yours
 
 

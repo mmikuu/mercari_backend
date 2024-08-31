@@ -2,7 +2,7 @@ import os, sys
 import sqlite3
 
 def add_wishlist(wishlist: dict) -> None: #### wishlistに追加する関数
-    database: str = "wishlists.db"
+    database: str = "test.db"
     conn = sqlite3.connect(database)
     cur = conn.cursor()
     wishlist_item = [v[1] for i,v in enumerate(wishlist.items())]
@@ -21,7 +21,7 @@ def add_wishlist(wishlist: dict) -> None: #### wishlistに追加する関数
     conn.close()
 
 def add_listings(your_list: dict) -> None:  ##listingsに追加する関数
-    database: str = "wishlists.db"
+    database: str = "test.db"
     conn = sqlite3.connect(database)
     cur = conn.cursor()
 
@@ -44,7 +44,7 @@ def add_listings(your_list: dict) -> None:  ##listingsに追加する関数
 
 
 def get_matched_data(your_list: dict) -> tuple:  ### 出品者がwishlistとのマッチを確認する関数
-    database: str = "wishlists.db"
+    database: str = "test.db"
     conn = sqlite3.connect(database)
     cur = conn.cursor()
 
